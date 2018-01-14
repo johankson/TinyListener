@@ -3,8 +3,40 @@
     <head>
         <meta charset="utf-8" />
         <title>I'm a really good listener</title>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+        <script language="javascript">
+
+            var marker = -1;
+            var channel = "test";
+
+            $(document).ready(function() {
+               UpdateLog();
+            });
+
+            function UpdateLog()
+            {
+                $.get("/api/listener/" + channel + "?marker=" + marker, function(data, status){
+                    if(status == "success")
+                    {
+                        var content = $('#content');
+                        for(var i=0;i<data.length;i++)
+                        {
+                            var item = $("<div></div>").text(data[i].data);
+                            content.append(item);
+
+                            if(marker < data[i].marker)
+                            {
+                                marker = data[i].marker;
+                            }
+                        }
+
+                        setTimeout(function() { UpdateLog(); }, 5000);
+                    }
+                });
+            }
+        </script>
     </head>
     <body>
-        Duck
+        <div id="content" />
     </body>
 </html>
