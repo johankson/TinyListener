@@ -9,7 +9,18 @@
     <AllowUnsafeBlocks></AllowUnsafeBlocks>
     <CheckForOverflowUnderflow></CheckForOverflowUnderflow>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>TinyListener</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>johankson</Authors>
+    <Description>A very simple log trace viewer thingy</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 - Johan Karlsson</Copyright>
+    <PackageTags>Xamarin pubsub</PackageTags>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageProjectUrl>https://github.com/johankson/TinyListener</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+  </PropertyGroup>
 </Project>
