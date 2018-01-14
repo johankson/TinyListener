@@ -4,13 +4,19 @@
         <meta charset="utf-8" />
         <title>I'm a really good listener</title>
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
         <script language="javascript">
 
             var marker = -1;
             var channel = "test";
 
             $(document).ready(function() {
-               UpdateLog();
+                channel = getParameterByName('channel');
+
+                var input = $('#channel').val(channel);
+                UpdateLog();
+
+                $('#clearButton').click(function() { ClearLog(); });
             });
 
             function UpdateLog()
@@ -21,7 +27,10 @@
                         var content = $('#content');
                         for(var i=0;i<data.length;i++)
                         {
-                            var item = $("<div></div>").text(data[i].data);
+                            var item = $("<tr></tr>")
+                            item.append($("<th scope='col'></th>").text(data[i].marker));
+                            item.append($("<td scope='col'></td>").text(data[i].data));
+
                             content.append(item);
 
                             if(marker < data[i].marker)
@@ -34,9 +43,58 @@
                     }
                 });
             }
+
+            function ClearLog()
+            {
+                $.ajax({
+                    url: '/api/listener/' + channel,
+                    type: 'DELETE',
+                    success: function(result) {
+                        var content = $('#content');
+                        content.empty();
+                    }
+                });
+            }
+
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
         </script>
     </head>
     <body>
-        <div id="content" />
+        <!-- <div id="content" class="container" /> -->
+
+        <div class="container">
+
+            <form method="GET">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Channel name</label>
+                    <input type="channel" class="form-control" id="channel" name="channel" aria-describedby="channelHelp" placeholder="Enter your channel">
+                    <small id="channelHelp" class="form-text text-muted">The amazing channel to listen to.</small>
+                </div>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+            </form>
+
+
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="cole">Data</th>
+                    </tr>
+                </thead>
+                <tbody id="content">
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-danger" id="clearButton">Clear</button>
+        </div>
     </body>
 </html>
