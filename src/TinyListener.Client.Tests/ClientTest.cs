@@ -13,5 +13,12 @@ namespace TinyListener.Client.Tests
             var client = new TinyListener();
             await client.Send("test-channel", "Ankor är söta");
         }
+
+        [Fact]
+        public async Task MoreSendTest()
+        {
+            var client = new TinyListener();
+            await client.Send("ville", "Gulliga ankor!"); 
+        }
     }
 }

@@ -47,6 +47,7 @@ namespace Listener
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shoppinglist API V1");
             });
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseMvc();

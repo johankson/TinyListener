@@ -66,35 +66,50 @@
                 return decodeURIComponent(results[2].replace(/\+/g, " "));
             }
         </script>
+        <style>
+        .vertical-center {
+            min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+            min-height: 100vh; /* These two lines are counted as one :-)       */
+
+            display: flex;
+            align-items: top;
+            margin-top: 50pt;
+            }
+
+            .data-table {
+                background-color: #EEEEEE;
+                margin-top: 30px;
+            }
+        </style>
     </head>
     <body>
         <!-- <div id="content" class="container" /> -->
+        <div class="vertical-center">
 
-        <div class="container">
+            <div class="container">
 
-            <form method="GET">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Channel name</label>
-                    <input type="channel" class="form-control" id="channel" name="channel" aria-describedby="channelHelp" placeholder="Enter your channel">
-                    <small id="channelHelp" class="form-text text-muted">The amazing channel to listen to.</small>
-                </div>
-                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-            </form>
+                <form method="GET">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Channel name</label>
+                        <input type="channel" class="form-control" id="channel" name="channel" aria-describedby="channelHelp" placeholder="Enter your channel">
+                        <small id="channelHelp" class="form-text text-muted">The amazing channel to listen to.</small>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </form>
+                
+                <table class="table data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="cole">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content">
+                    </tbody>
+                </table>
 
-
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="cole">Data</th>
-                    </tr>
-                </thead>
-                <tbody id="content">
-                </tbody>
-            </table>
-
-            <button type="button" class="btn btn-danger" id="clearButton">Clear</button>
+                <button type="button" class="btn btn-danger" id="clearButton">Clear</button>
+            </div>
         </div>
     </body>
 </html>
