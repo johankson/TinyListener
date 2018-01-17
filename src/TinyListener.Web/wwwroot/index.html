@@ -10,6 +10,8 @@
             var marker = -1;
             var channel = "test";
             var currentFilter = {};
+            var word1 = ["blue", "nice", "ugly", "tiny", "really-tiny"];
+            var word2 = ["donkey", "rollerblade", "pizza", "anka"];
 
             $(document).ready(function() {
                 channel = getParameterByName('channel');
@@ -23,6 +25,14 @@
 
                     currentFilter[filter] = $(this).val().toLowerCase();
                     DoFilter();
+                });
+
+                $('.word-randomizer').each(function(i, s)
+                {
+                    var index1 = Math.floor(Math.random() * word1.length);
+                    var index2 = Math.floor(Math.random() * word2.length);
+
+                    $(this).text(word1[index1] + '-' + word2[index2]);
                 });
             });
 
@@ -105,6 +115,10 @@
                 background-color: #EEEEEE;
                 margin-top: 30px;
             }
+
+            body {
+                color: #666!important;
+            }
         </style>
     </head>
     <body>
@@ -157,7 +171,7 @@
 
                     <li>
                         <strong>Make up a channel</strong>
-                        <p>We suggest <strong>duck-hunting</strong> or <strong>donkey-legs</strong>. It can be whatever you want. Make it fairly unique though. Just "test" is not good enough.
+                        <p>We suggest <strong class="word-randomizer">duck-hunting</strong> or <strong class="word-randomizer">donkey-legs</strong>. It can be whatever you want. Make it fairly unique though. Just "test" is not good enough.
                             Use the channel name in the input box above!
                         </p>
                     </li>
@@ -165,11 +179,28 @@
                     <li>
                         <strong>Say something</strong>
                         <p>Add this code in your app to say something to TinyListener</p>
-                        <code>
-                            TinyListener.Say("donkey-legs", "Hello world!");
-                        </code>
+                        <p>
+                            <code>
+                                TinyListener.Say("<span class="word-randomizer">donkey-legs</span>", "Hello world!");
+                            </code>
+                        </p>
+                    </li>
+
+                    <li>
+                        <strong>Watch your data appear above!</strong>
+                        <p>You can now see your data live and filter it and stuff.</p>
                     </li>
                 </ol>
+            </div>
+
+            <div class="container">
+
+                <strong>Additional info</strong>
+                <ul>
+                    <li>This is not secure!! If you want it secure, please set up your <a href="https://www.github.com/johankson/tinylistener">own server</a>. Or wait for TinyListener 2.0</li>
+                    <li>The data is not persisted and can be deleted at any time.</li>
+                </ul>
+                
             </div>
         </div>
     </body>
