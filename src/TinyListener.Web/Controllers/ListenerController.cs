@@ -47,7 +47,6 @@ namespace Listener.Controllers
         [HttpDelete("{channel}")]
         public void Delete(string channel)
         {
-            //System.IO.File.Delete($"wwwroot/data/logfile-{channel}.txt");
             lock (log)
             {
                 if (log.ContainsKey(channel))
@@ -55,7 +54,6 @@ namespace Listener.Controllers
                     log.Remove(channel);
                 }
             }
-
         }
 
         [HttpGet("{channel}")]

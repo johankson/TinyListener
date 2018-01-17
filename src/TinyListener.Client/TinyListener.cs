@@ -7,18 +7,36 @@ namespace TinyListener.Client
 {
     public class TinyListener
     {
-        private readonly HttpClient _client;
-        private readonly string _clientId = Guid.NewGuid().ToString().Substring(0, 8); // TODO Add a provider interface instead to inject the client id
+        private static TinyListener _instance = new TinyListener();
 
-        public TinyListener()
+        private readonly HttpClient _client;
+        private string _clientId = Guid.NewGuid().ToString().Substring(0, 8); 
+        private IClientIdFactory _clientIdFactory = null;
+
+        public TinyListener(HttpClient httpClient = null)
         {
-            // TODO Add injection of HttpClient or a factory?
-            _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://tinylistener.azurewebsites.net");
+            if (httpClient == null)
+            {
+                _client = new HttpClient();
+                _client.BaseAddress = new Uri("https://tinylistener.azurewebsites.net");
+			}
+            else
+            {
+                if (String.IsNullOrWhiteSpace(httpClient.BaseAddress.ToString()))
+                {
+                    throw new ArgumentException("You must set BaseAddress on the HttpClient you passed in", nameof(httpClient)); 
+                }
+                _client = httpClient;
+            }
         }
 
         public async Task Send(string channel, string data)
         {
+            if (_clientIdFactory != null)
+            {
+                _clientId = _clientIdFactory.Create();
+            }
+
             var obj = new
             {
                 data,
@@ -30,6 +48,19 @@ namespace TinyListener.Client
             var result = await _client.PostAsync($"/api/listener/{channel}", content);
 
             result.EnsureSuccessStatusCode();
+        }
+
+        public static async Task Say(string channel, string data)
+        {
+            await _instance.Send(channel, data);
+        }
+
+        public static void Configure(IClientIdFactory factory = null)
+        {
+            if (factory != null)
+            {
+				_instance._clientIdFactory = factory;
+            }
         }
     }
 }
