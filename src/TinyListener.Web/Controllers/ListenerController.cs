@@ -15,11 +15,6 @@ namespace Listener.Controllers
         [HttpPost("{channel}")]
         public void Post(string channel, [FromBody]LogData data)
         {
-            //using (StreamWriter writer = System.IO.File.AppendText($"wwwroot/data/logfile-{channel}.txt"))
-            //{
-            //    writer.WriteLine(data.Data);
-            //}
-
             List<LogData> list = GetOrCreateList(channel);
 
             var marker = 0;
@@ -82,5 +77,6 @@ namespace Listener.Controllers
     {
         public int Marker { get; set; }
         public string Data { get; set; }
+        public string Clientid { get; set; }
     }
 }

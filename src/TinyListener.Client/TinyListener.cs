@@ -7,6 +7,7 @@ namespace TinyListener.Client
     public class TinyListener
     {
         private readonly HttpClient _client;
+        private readonly string _clientId = Guid.NewGuid().ToString().Substring(0, 8); // TODO Add a provider interface instead to inject the client id
 
         public TinyListener()
         {
@@ -18,7 +19,7 @@ namespace TinyListener.Client
         public async Task Send(string channel, string data)
         {
             // TODO Json serialization
-            var json = "{\"data\":\"" + data + "\"}";
+            var json = "{\"data\":\"" + data + "\", \"clientid\":\"" + _clientId + "\"}";
 
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             var result = await _client.PostAsync($"/api/listener/{channel}", content);

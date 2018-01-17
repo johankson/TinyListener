@@ -30,6 +30,7 @@
                             var item = $("<tr></tr>")
                             item.append($("<th scope='col'></th>").text(data[i].marker));
                             item.append($("<td scope='col'></td>").text(data[i].data));
+                            item.append($("<td scope='col'></td>").text(data[i].clientid));
 
                             content.append(item);
 
@@ -101,7 +102,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="cole">Data</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Client id</th>
                         </tr>
                     </thead>
                     <tbody id="content">
