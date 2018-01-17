@@ -50,9 +50,14 @@ namespace TinyListener.Client
             result.EnsureSuccessStatusCode();
         }
 
-        public static async Task Say(string channel, string data)
+        public static async Task SayAsync(string channel, string data)
         {
             await _instance.Send(channel, data);
+        }
+
+        public static void Say(string channel, string data)
+        {
+            SayAsync(channel, data).GetAwaiter().GetResult();
         }
 
         public static void Configure(IClientIdFactory factory = null)

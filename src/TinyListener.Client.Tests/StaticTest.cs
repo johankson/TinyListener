@@ -9,7 +9,7 @@ namespace TinyListener.Client.Tests
         [Fact]
         public async Task SayTest()
         {
-            await TinyListener.Say("debug", "Hello world!");
+            await TinyListener.SayAsync("debug", "Hello world!");
         }
 
         [Fact]
@@ -20,7 +20,7 @@ namespace TinyListener.Client.Tests
 
             // Act
             TinyListener.Configure(factory);
-            await TinyListener.Say("debug", "Hello world!");
+            await TinyListener.SayAsync("debug", "Hello world!");
 
             // Assert
 

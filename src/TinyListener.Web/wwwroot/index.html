@@ -9,6 +9,7 @@
 
             var marker = -1;
             var channel = "test";
+            var currentFilter = {};
 
             $(document).ready(function() {
                 channel = getParameterByName('channel');
@@ -17,7 +18,29 @@
                 UpdateLog();
 
                 $('#clearButton').click(function() { ClearLog(); });
+                $('.filter').keyup(function () {
+                    var filter = $(this).data('filter');
+
+                    currentFilter[filter] = $(this).val().toLowerCase();
+                    DoFilter();
+                });
             });
+
+            function DoFilter()
+            {
+                var content = $('#content');
+                content.find('tr').each(function(i, row)
+                {
+                    var found = true;
+                    $.each(currentFilter, function(key, value)
+                    {
+                        var column = key-0;
+                        found = found && row.childNodes[column].innerText.toLowerCase().includes(value);
+                    });
+
+                    $(row).toggle(found);
+                });
+            }
 
             function UpdateLog()
             {
@@ -39,6 +62,8 @@
                                 marker = data[i].marker;
                             }
                         }
+
+                        DoFilter();
 
                         setTimeout(function() { UpdateLog(); }, 5000);
                     }
@@ -69,12 +94,11 @@
         </script>
         <style>
         .vertical-center {
-            min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-            min-height: 100vh; /* These two lines are counted as one :-)       */
-
+           
             display: flex;
             align-items: top;
             margin-top: 50pt;
+            margin-bottom: 50pt;
             }
 
             .data-table {
@@ -91,19 +115,23 @@
 
                 <form method="GET">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Channel name</label>
+                        <label for="channel">Channel name</label>
                         <input type="channel" class="form-control" id="channel" name="channel" aria-describedby="channelHelp" placeholder="Enter your channel">
                         <small id="channelHelp" class="form-text text-muted">The amazing channel to listen to.</small>
                     </div>
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                 </form>
                 
                 <table class="table data-table">
                     <thead>
-                        <tr>
+                        <!-- <tr>
                             <th scope="col">#</th>
                             <th scope="col">Data</th>
                             <th scope="col">Client id</th>
+                        </tr> -->
+                        <tr>
+                            <th></th>
+                            <th><input class="filter" data-filter="1" placeholder="Data" /></th>
+                            <th><input class="filter" data-filter="2" placeholder="Client id" /></th>
                         </tr>
                     </thead>
                     <tbody id="content">
@@ -111,6 +139,37 @@
                 </table>
 
                 <button type="button" class="btn btn-danger" id="clearButton">Clear</button>
+            </div>
+
+           
+        </div>
+
+        <div class="container">
+
+            <div class="alert alert-warning">
+                <ol>
+                    <li>
+                        <strong>Install the nuget package</strong>
+                        <p>
+                            <a href="https://www.nuget.org/tinylistener.client">Click here</a> to do so.
+                        </p>
+                    </li>
+
+                    <li>
+                        <strong>Make up a channel</strong>
+                        <p>We suggest <strong>duck-hunting</strong> or <strong>donkey-legs</strong>. It can be whatever you want. Make it fairly unique though. Just "test" is not good enough.
+                            Use the channel name in the input box above!
+                        </p>
+                    </li>
+
+                    <li>
+                        <strong>Say something</strong>
+                        <p>Add this code in your app to say something to TinyListener</p>
+                        <code>
+                            TinyListener.Say("donkey-legs", "Hello world!");
+                        </code>
+                    </li>
+                </ol>
             </div>
         </div>
     </body>
