@@ -12,14 +12,14 @@
 
   <PropertyGroup>
     <PackageId>TinyListener</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>0.1.0</PackageVersion>
     <Authors>johankson</Authors>
     <Description>A very simple log trace viewer thingy</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <Copyright>Copyright 2017 - Johan Karlsson</Copyright>
+    <Copyright>Copyright 2018 - Johan Karlsson</Copyright>
     <PackageTags>Xamarin pubsub</PackageTags>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageIconUrl>https://i.imgur.com/FFs6M1H.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/johankson/TinyListener</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
   </PropertyGroup>

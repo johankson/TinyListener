@@ -29,6 +29,11 @@ namespace Listener
                 c.SwaggerDoc("v1", new Info { Title = "Listener API", Version = "v1" });
             });
 
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAllOrigin",
+            //        builder => builder.WithOrigins("*"));
+            //});
             services.AddMvc();
 
         }
@@ -40,7 +45,8 @@ namespace Listener
             {
                 app.UseDeveloperExceptionPage();
             }
-           
+
+            //app.UseCors(builder => builder.WithOrigins("*"));
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

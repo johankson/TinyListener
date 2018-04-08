@@ -62,8 +62,26 @@
                         {
                             var item = $("<tr></tr>")
                             item.append($("<th scope='col'></th>").text(data[i].marker));
-                            item.append($("<td scope='col'></td>").text(data[i].data));
+                            
+                            var dataCell = $("<td scope='col'></td>");
+                           
+                            if(data[i].url != undefined)
+                            {
+                                var url = data[i].url;
+                                var link = $('<a />');
+                                link.attr('href',url);
+                                link.text(data[i].filename);
+                                dataCell.append(link);
+                                item.append(dataCell);
+                            }
+                            else
+                            {
+                                item.append(dataCell.text(data[i].data));
+                            }
+
                             item.append($("<td scope='col'></td>").text(data[i].clientid));
+
+                            
 
                             content.append(item);
 
